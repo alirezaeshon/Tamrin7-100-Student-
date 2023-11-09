@@ -3,85 +3,217 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+class Lesson {
+  string _name;
+  double _score;
+  int _ratio;
+  public string GetName()
+  {
+    return _name;
+  }
+  public void SetName(string value)
+  {
+    _name = value;
+  }
+
+  public double GetScore(){
+    return _score;
+  }
+
+  public void SetScore(double value){
+    _score = value;
+  }
+
+  public double GetRatio(){
+    return _ratio;
+  }
+
+  public Lesson(string value,int r){
+    Random rnd = new Random();
+    double num = rnd.NextDouble();
+
+    _name = value;
+    _score = num * 20;
+    _ratio = r;
+  }
+}
+
+class Student {
+    int _id;
+    string _name;
+    Lesson[] _lessons = new Lesson[]{
+      new Lesson("math",3),
+      new Lesson("algorithm",3),
+      new Lesson("test",2),
+    };
+    public int GetId()
+    {
+        return _id;
+    }
+    public string GetName(){
+      return _name;
+    }
+    public void SetId(int value)
+    {
+        _id = value;
+    }
+
+    public Student(string value){
+      _name = value;
+    }
+
+    public double GetAvg(){
+      double sum = 0;
+      double ratioSum = 0;
+      for (int i = 0; i < _lessons.Length; i++)
+      {
+        ratioSum += _lessons[i].GetRatio();
+        sum += _lessons[i].GetRatio() * _lessons[i].GetScore();
+      }
+      return sum / ratioSum;
+    }
+    public double GetAvgByNames(string[] names){
+      double sum = 0;
+      double ratioSum = 0;
+      for (int i = 0; i < _lessons.Length; i++)
+      {
+        int find = Array.IndexOf(names,_lessons[i].GetName());
+
+        if( find != -1){
+          ratioSum += _lessons[i].GetRatio();
+          sum += _lessons[i].GetRatio() * _lessons[i].GetScore();
+        }
+      }
+      return sum / ratioSum;
+    }
+
+    public void PrintLossons(){
+      for (int i = 0; i < _lessons.Length; i++)
+      {
+        Console.WriteLine("Lesson: " + _lessons[i].GetName() + " Score: " + _lessons[i].GetScore() + " Ratio: " + _lessons[i].GetRatio());
+      }
+    }
+}
+
 namespace Rextester
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            string[] names = new string[]{"math"};
 
-         // Iam Alireza Nazeri.
-             Console.WriteLine("Hello!");
-              string[] name = new string[100];
-             name[0] = "hossein";          name[1] = "ali";     
-             name[2] = "mohsen";           name[3] = "bahram";  
-             name[4] = "kazem";            name[5] = "behrooz";  
-             name[6] = "amir";             name[7] = "sina";   
-             name[8] = "hasan";            name[9] = "mohammad";
-             name[10] = " eskandar";       name[11] = " reza";
-             name[12] = "mahram";          name[13] = "bahram";
-             name[14] = " shahram";        name[15] = "shadmehr";
-             name[16] = " ebi";            name[17] = "korosh";
-             name[18] = "ehsan";           name[19] = "ahmad";
-             name[20] = " salar";          name[21] = "sorena";
-             name[22] = "avesta";          name[23] = "ramin";
-             name[24] = "alireza";         name[25] = "mobin";
-             name[26] = "saeid";           name[27] = "moein";
-             name[28] = "mehdi";           name[29] = "sadegh";
-             name[30] = "jalal";           name[31] = "bohlol";
-             name[32] = "masood";          name[33] = "erfan";
-             name[34] = "majid";           name[35] = "omid";
-             name[36] = "mehrdad";         name[37] = "hesam";
-             name[38] = "iliya";           name[39] = "ashkan";
-             name[40] = "bardiya";         name[41] = "benjamin";
-             name[42] = "babak";           name[43] = "behnam";
-             name[44] = "pooya";           name[45] = "khosro";
-             name[46] = "daryoosh";        name[47] = "sirvan";
-             name[48] = "sadra";           name[49] = "sobhan";
-             name[50] = "shahab";          name[51] = "zahra";
-             name[52] = "fatemeh";         name[53] = "reyhaneh";
-             name[54] = "homa";            name[55] = "sara";
-             name[56] = "mona";            name[57] = "azita";
-             name[58] = "nazanin";         name[59] = "niloofar";
-             name[60] = "nastaran";        name[61] = "helen";
-             name[62] = "asal";            name[63] = "ava";
-             name[64] = "ghazal";          name[65] = "hana";
-             name[66] = "mersana";         name[67] = "aseman";
-             name[68] = "darya";           name[69] = "donya";
-             name[70] = "baran";           name[71] = "ayda";
-             name[72] = "maedeh";          name[73] = "negar";
-             name[74] = "negin";           name[75] = "samira";
-             name[76] = "elnaz";           name[77] = "elham";
-             name[78] = "narges";          name[79] = "ameneh";
-             name[80] = "zeynab";          name[81] = "nasrin";
-             name[82]="mahnaz";            name[83] = "bahar";
-             name[84] = "niki";            name[85] = "sadaf";
-             name[86] = "nahid";           name[87] = "akram";
-             name[88] = "james";           name[89] = "ben";
-             name[90] = "kevin";           name[91] = "marco";
-             name[92] = "selena";          name[93] = "antony";
-             name[94] = "taylor";          name[95] = "alan";
-             name[96] = "maria";           name[97] = "roze";
-             name[98] = "harry";           name[99] = "nicolas";
+            Student[] students = new Student[]{
+                new Student("hossein"),
+                new Student("ali"),
+                new Student("mohsen"),
+                new Student("bahram"),
+                new Student("kazem"),
+                new Student("behrooz"),
+                new Student("amir"),
+                new Student("sina"),
+                new Student("hasan"),
+                new Student("mohammad"),
+                new Student(" eskandar"),
+                new Student(" reza"),
+                new Student("mahram"),
+                new Student("bahram"),
+                new Student(" shahram"),
+                new Student("shadmehr"),
+                new Student(" ebi"),
+                new Student("korosh"),
+                new Student("ehsan"),
+                new Student("ahmad"),
+                new Student(" salar"),
+                new Student("sorena"),
+                new Student("avesta"),
+                new Student("ramin"),
+                new Student("alireza"),
+                new Student("mobin"),
+                new Student("saeid"),
+                new Student("moein"),
+                new Student("mehdi"),
+                new Student("sadegh"),
+                new Student("jalal"),
+                new Student("bohlol"),
+                new Student("masood"),
+                new Student("erfan"),
+                new Student("majid"),
+                new Student("omid"),
+                new Student("mehrdad"),
+                new Student("hesam"),
+                new Student("iliya"),
+                new Student("ashkan"),
+                new Student("bardiya"),
+                new Student("benjamin"),
+                new Student("babak"),
+                new Student("behnam"),
+                new Student("pooya"),
+                new Student("khosro"),
+                new Student("daryoosh"),
+                new Student("sirvan"),
+                new Student("sadra"),
+                new Student("sobhan"),
+                new Student("shahab"),
+                new Student("zahra"),
+                new Student("fatemeh"),
+                new Student("reyhaneh"),
+                new Student("homa"),
+                new Student("sara"),
+                new Student("mona"),
+                new Student("azita"),
+                new Student("nazanin"),
+                new Student("niloofar"),
+                new Student("nastaran"),
+                new Student("helen"),
+                new Student("asal"),
+                new Student("ava"),
+                new Student("ghazal"),
+                new Student("hana"),
+                new Student("mersana"),
+                new Student("aseman"),
+                new Student("darya"),
+                new Student("donya"),
+                new Student("baran"),
+                new Student("ayda"),
+                new Student("maedeh"),
+                new Student("negar"),
+                new Student("negin"),
+                new Student("samira"),
+                new Student("elnaz"),
+                new Student("elham"),
+                new Student("narges"),
+                new Student("ameneh"),
+                new Student("zeynab"),
+                new Student("nasrin"),
+                new Student("mahnaz"),
+                new Student("bahar"),
+                new Student("niki"),
+                new Student("sadaf"),
+                new Student("nahid"),
+                new Student("akram"),
+                new Student("james"),
+                new Student("ben"),
+                new Student("kevin"),
+                new Student("marco"),
+                new Student("selena"),
+                new Student("antony"),
+                new Student("taylor"),
+                new Student("alan"),
+                new Student("maria"),
+                new Student("roze"),
+                new Student("harry"),
+                new Student("nicolas"),
+            };
+            for (int i = 0; i < students.Length; i++)
+            {
+              Console.WriteLine("Name: " + students[i].GetName());
+              students[i].PrintLossons();
+              Console.WriteLine("Selected Avg: " + students[i].GetAvgByNames(names));
+              Console.WriteLine("Total Avg: " + students[i].GetAvg());
+              Console.WriteLine("\n");
 
-             class student
-{
-    public double pishrafe1 { get; set; }
-    public double tafsir { get; set; }
-    public double riazi { get; set; }
-    public double kargah { get; set; }
-    public double zaban_ENG { get; set; }
-    public double pishrafte2 { get; set; }
-    public double sheygraee { get; set; }
-    public double tarbiat_badani { get; set; }
-    public double sistem_amel { get; set; }
-    public double algoritm { get; set; }
-
-
-}
-
-}
-
-}
-
+            }
+        }
+    }
 }
