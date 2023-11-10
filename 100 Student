@@ -42,9 +42,17 @@ class Student {
     int _id;
     string _name;
     Lesson[] _lessons = new Lesson[]{
-      new Lesson("math",3),
-      new Lesson("algorithm",3),
-      new Lesson("test",2),
+      new Lesson("Riazi",2),
+      new Lesson("Algoritm",3),
+      new Lesson("Pishrafte1",3),
+      new Lesson("Pishrafte2",3),
+      new Lesson("Shei Gerayi",3),
+      new Lesson("Tafsir",1),
+      new Lesson("Kargah",1),
+      new Lesson("Engelisi",2),
+      new Lesson("Varzesh",1),
+      new Lesson("Sistem Amel",3),
+      
     };
     public int GetId()
     {
@@ -101,8 +109,8 @@ namespace Rextester
     {
         public static void Main(string[] args)
         {
-            string[] names = new string[]{"math"};
-
+            string[] namess = new string[]{"Pishrafte1","Pishrafte2","Shei Gerayi"};
+            string[] names = new string[]{"Sistem Amel","Algoritm"};
             Student[] students = new Student[]{
                 new Student("hossein"),
                 new Student("ali"),
@@ -205,11 +213,21 @@ namespace Rextester
                 new Student("harry"),
                 new Student("nicolas"),
             };
+             Console.WriteLine("chi mikhay?");
+             Console.WriteLine("1 : moratab sazi bar asas nam ?");
+             Console.WriteLine("2 : moratab sazi bar asas total avg ?");
+             Console.WriteLine("3 : moratab sazi bar asas avg* ?");
+             Console.WriteLine("4 : moratab sazi bar asas avg** ?");
+             Console.WriteLine("5 : adad avaie nomarat ?");
+             switch
+
+
             for (int i = 0; i < students.Length; i++)
             {
               Console.WriteLine("Name: " + students[i].GetName());
               students[i].PrintLossons();
-              Console.WriteLine("Selected Avg: " + students[i].GetAvgByNames(names));
+              Console.WriteLine("Avg **: " + students[i].GetAvgByNames(namess));
+              Console.WriteLine("Avg *: " + students[i].GetAvgByNames(names));
               Console.WriteLine("Total Avg: " + students[i].GetAvg());
               Console.WriteLine("\n");
 
